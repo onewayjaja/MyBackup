@@ -22,6 +22,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+            //override func processJsonConfig(){
+            //
+            //            let requestUrl = URL(string:scheduleUrl)
+            //            let request = URLRequest(url:requestUrl!)
+            //            let task = URLSession.shared.dataTask(with: request) {
+            //                (data, response, error) in
+            //                if error == nil {
+            //
+            //                    let json:NSDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
+            //                    let jsonArray:Array<NSDictionary> = json["schedules"] as! Array<NSDictionary>
+            //
+            //                    let arry:NSMutableArray = NSMutableArray()
+            //
+            //                    for jsonData in jsonArray {
+            //
+            //
+            //                        let schedule = Schedule(ext: jsonData["ext"] as! String,
+            //                                              time: jsonData["time"] as! String,
+            //                                              interval: jsonData["interval"] as! String)
+            //                        arry.add(schedule)
+            //
+            //                    }
+            //
+            //                    self.schedules = arry as! Array<ViewController.Schedule>
+            //                    self.count = self.schedules.count
+            //
+            //                }
+            //            }
+            //
+            //            task.resume()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {

@@ -12,6 +12,8 @@
 		E66D8F241F973FFD00787C29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66D8F221F973FFD00787C29 /* Main.storyboard */; };
 		E66D8F261F973FFD00787C29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66D8F251F973FFD00787C29 /* Assets.xcassets */; };
 		E66D8F291F973FFD00787C29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66D8F271F973FFD00787C29 /* LaunchScreen.storyboard */; };
+		E6BCE9361FA1DF05003A2567 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = E6BCE9351FA1DF05003A2567 /* config.json */; };
+		E6BCE9381FA1DF0A003A2567 /* schedules.json in Resources */ = {isa = PBXBuildFile; fileRef = E6BCE9371FA1DF0A003A2567 /* schedules.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		E66D8F251F973FFD00787C29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E66D8F281F973FFD00787C29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E66D8F2A1F973FFE00787C29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6BCE9351FA1DF05003A2567 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		E6BCE9371FA1DF0A003A2567 /* schedules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schedules.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		E66D8F1D1F973FFC00787C29 /* MyBackup */ = {
 			isa = PBXGroup;
 			children = (
+				E6BCE9371FA1DF0A003A2567 /* schedules.json */,
+				E6BCE9351FA1DF05003A2567 /* config.json */,
 				E66D8F1E1F973FFD00787C29 /* AppDelegate.swift */,
 				E66D8F201F973FFD00787C29 /* ViewController.swift */,
 				E66D8F221F973FFD00787C29 /* Main.storyboard */,
@@ -124,7 +130,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E66D8F291F973FFD00787C29 /* LaunchScreen.storyboard in Resources */,
+				E6BCE9361FA1DF05003A2567 /* config.json in Resources */,
 				E66D8F261F973FFD00787C29 /* Assets.xcassets in Resources */,
+				E6BCE9381FA1DF0A003A2567 /* schedules.json in Resources */,
 				E66D8F241F973FFD00787C29 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +309,7 @@
 				E66D8F2F1F973FFE00787C29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

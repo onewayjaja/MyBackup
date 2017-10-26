@@ -11,22 +11,71 @@ import UIKit
 class ViewController: UIViewController {
 
     
-    let scheduleUrl:String = "http://www.mocky.io/v2/59e6e7550f00005305ee97e6"
-
-    
-    
-    override func viewDidLoad() {
+override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let configManager = ConfigManager()
-        configManager.processConfigs(manager: configManager)
-        
-        let scheduleManager = ScheduleManager()
-        scheduleManager.processSchedules(manager: scheduleManager)
+    
+   let mybackUp =  MyBackupService()
+    mybackUp.processJsonConfigs()
+    mybackUp.doBackup()
+}
 
+class JsonManager{
+
+    
+    func getJsonObject(fileName:String)->Any?{
+            
+        do {
+            if let file = Bundle.main.url(forResource:fileName, withExtension: "json") {
+                let data = try Data(contentsOf: file)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+               
+                return json;
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+
+        }
         
+        return nil
+    }
+
+    
+    func processJsonConfig(){
         
     }
+}
+    
+    
+struct MyBackupService {
+        
+        private var managers:NSMutableArray = []
+    
+        init(){
+            self.managers.add(ConfigManager());
+            self.managers.add(ScheduleManager());
+        }
+    
+    
+        func doBackup(){
+            
+       
+            
+        }
+        
+        func processJsonConfigs(){
+            
+            for manager in managers {
+                
+                let jsonManger:JsonManager = manager as! JsonManager
+                jsonManger.processJsonConfig()
+            }
+            
+        }
+    }
+    
+    
+    
     
     struct Config {
         
@@ -41,55 +90,45 @@ class ViewController: UIViewController {
         let connectionString:String
     }
     
-    struct ConfigManager  {
+    class ConfigManager:JsonManager{
         
         let configUrl:String = "http://www.mocky.io/v2/59e6d2c00f00007704ee97b6"
+        let fileName:String = "config"
         
-        var configs:Array<Config> = []
-        var count:Int = 0
+        private var configs:Array<Config> = []
+        private var count:Int = 0
         
-        func processConfigs(manager:ConfigManager){
+            override func processJsonConfig(){
+        
             
-            var manager = manager
-            
-            let requestUrl = URL(string:configUrl)
-            let request = URLRequest(url:requestUrl!)
-            let task = URLSession.shared.dataTask(with: request) {
-                (data, response, error) in
-                if error == nil {
+                if let json:NSDictionary  = self.getJsonObject(fileName:fileName) as? NSDictionary{
                 
-                    let json:NSDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
                     let jsonArray:Array<NSDictionary> = json["config"] as! Array<NSDictionary>
-                    
                     let arry:NSMutableArray = NSMutableArray()
-                    
-                    for jsonData in jsonArray {
-                        
 
-                        let config = Config(ext: jsonData["ext"] as! String,
-                                            location: jsonData["location"] as! String,
-                                            subDirectory: jsonData["subDirectory"] as! Bool,
-                                            unit: jsonData["unit"] as! String,
-                                            remove: jsonData["remove"] as! Bool,
-                                            handler: jsonData["handler"] as! String,
-                                            destination: jsonData["destination"] as! String,
-                                            dir: jsonData["dir"] as! String,
-                                            connectionString: jsonData["connectionString"] as! String)
-                        arry.add(config)
-                        
-                    }
+                        for jsonData in jsonArray {
                     
-                    manager.configs = arry as! Array<ViewController.Config>
-                    manager.count = manager.configs.count
                     
+                            let config = Config(ext: jsonData["ext"] as! String,
+                                                location: jsonData["location"] as! String,
+                                                subDirectory: jsonData["subDirectory"] as! Bool,
+                                                unit: jsonData["unit"] as! String,
+                                                remove: jsonData["remove"] as! Bool,
+                                                handler: jsonData["handler"] as! String,
+                                                destination: jsonData["destination"] as! String,
+                                                dir: jsonData["dir"] as! String,
+                                                connectionString: jsonData["connectionString"] as! String)
+                            arry.add(config)
+                    
+                        }
+                
+                    self.configs = arry as! Array<ViewController.Config>
+                    self.count = self.configs.count
                 }
+                
             }
-
-            task.resume()
-        }
-        
     }
-    
+
     struct Schedule {
         
         let ext:String
@@ -97,49 +136,35 @@ class ViewController: UIViewController {
         let interval:String
     }
     
-    struct ScheduleManager  {
-        
+    class ScheduleManager:JsonManager{
+
         let scheduleUrl:String = "http://www.mocky.io/v2/59e6e7550f00005305ee97e6"
-        
-        var schedules:Array<Schedule> = []
-        var count:Int = 0
-        
-        func processSchedules(manager:ScheduleManager){
-            
-            var manager = manager
-            
-            let requestUrl = URL(string:scheduleUrl)
-            let request = URLRequest(url:requestUrl!)
-            let task = URLSession.shared.dataTask(with: request) {
-                (data, response, error) in
-                if error == nil {
+        let fileName:String = "schedules"
+        private var schedules:Array<Schedule> = []
+        private var count:Int = 0
+
+            override func processJsonConfig(){
+
+                if let json:NSDictionary  = self.getJsonObject(fileName:fileName) as? NSDictionary{
                     
-                    let json:NSDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
                     let jsonArray:Array<NSDictionary> = json["schedules"] as! Array<NSDictionary>
-                    
                     let arry:NSMutableArray = NSMutableArray()
-                    
+
                     for jsonData in jsonArray {
-                        
-                        
+
+
                         let schedule = Schedule(ext: jsonData["ext"] as! String,
                                               time: jsonData["time"] as! String,
                                               interval: jsonData["interval"] as! String)
                         arry.add(schedule)
-                        
+
                     }
-                    
-                    manager.schedules = arry as! Array<ViewController.Schedule>
-                    manager.count = manager.schedules.count
-                    
-                    print(manager.schedules)
+
+                    self.schedules = arry as! Array<ViewController.Schedule>
+                    self.count = self.schedules.count
                 }
             }
-            
-            task.resume()
-        }
-        
+
     }
 
 }
-
